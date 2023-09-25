@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white_primary">
+
+    <TextView
+        android:id="@+id/popular_requests_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/list_item_padding"
+        android:background="@drawable/inactive_popular_request_background"
+        android:contentDescription="@string/popular_request_item"
+        android:paddingStart="@dimen/base_margin"
+        android:paddingTop="@dimen/list_item_padding"
+        android:paddingEnd="@dimen/base_margin"
+        android:paddingBottom="@dimen/list_item_padding"
+        android:textColor="@color/black_primary"
+        tools:text="Text"
+        />
+</LinearLayout>

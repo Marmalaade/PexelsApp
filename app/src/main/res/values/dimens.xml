@@ -3,4 +3,14 @@
     <dimen name="indicator_width">24dp</dimen>
     <dimen name="indicator_height">2dp</dimen>
     <dimen name="indicator_corner_radius">10dp</dimen>
+
+    <dimen name="small_margin">12dp</dimen>
+    <dimen name="picture_corner_radius">20dp</dimen>
+    <dimen name="medium_margin">24dp</dimen>
+    <dimen name="big_margin">32dp</dimen>
+    <dimen name="recycler_padding">14dp</dimen>
+    <dimen name="list_item_padding">10dp</dimen>
+    <dimen name="base_margin">20dp</dimen>
+    <dimen name="search_bar_height">50dp</dimen>
+
 </resources>
