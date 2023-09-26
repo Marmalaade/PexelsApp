@@ -32,4 +32,21 @@ class MainRepositoryImpl @Inject constructor(
                 } ?: emptyList()
             }
     }
+
+    override fun getSelectedPhoto(id: Int): Single<CuratedPhotoModel> {
+        return apiService.getSelectedPhoto(AppConfig.getApiKey(), id)
+            .map { response ->
+                mapper.mapToCuratedPhotoModel(response)
+            }
+    }
+
+    override fun getPhotosByRequest(query: String): Single<List<CuratedPhotoModel>> {
+        return apiService.getPhotosByRequest(AppConfig.getApiKey(), query, AppConfig.getPhotosPerPage())
+            .map { response ->
+                response.photos?.map {
+                    mapper.mapToCuratedPhotoModel(it)
+                } ?: emptyList()
+
+            }
+    }
 }

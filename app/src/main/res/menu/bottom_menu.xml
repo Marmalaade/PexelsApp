@@ -9,7 +9,7 @@
         app:itemRippleColor="@null" />
 
     <item
-        android:id="@+id/id_details_fragment"
+        android:id="@+id/id_bookmarks_fragment"
         android:icon="@drawable/bookmark_button_selector"
         android:title="@string/bookmark_text"
         app:itemRippleColor="@null" />

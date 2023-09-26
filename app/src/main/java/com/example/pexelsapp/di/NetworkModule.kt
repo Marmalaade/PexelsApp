@@ -12,6 +12,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -19,11 +20,12 @@ import javax.inject.Singleton
 object NetworkModule {
 
     @Provides
+    @Named("BASE_URL_V1")
     fun provideBaseUrl(): String = "https://api.pexels.com/v1/"
 
     @Provides
     @Singleton
-    fun provideRetrofit(baseUrl: String, client: OkHttpClient): Retrofit {
+    fun provideRetrofit(@Named("BASE_URL_V1") baseUrl: String, client: OkHttpClient): Retrofit {
         val moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()

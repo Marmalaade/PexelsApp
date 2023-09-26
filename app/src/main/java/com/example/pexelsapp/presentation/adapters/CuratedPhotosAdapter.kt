@@ -9,7 +9,8 @@ import com.example.pexelsapp.domain.models.CuratedPhotoModel
 import com.example.pexelsapp.presentation.generics.GenericDiffCallback
 
 class CuratedPhotosAdapter : RecyclerView.Adapter<CuratedPhotosViewHolder>() {
-    private var itemClick: ((Int) -> Unit) = {}
+    var itemClick: ((Int) -> Unit) = {}
+
     private val curatedPhotos = mutableListOf<CuratedPhotoModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CuratedPhotosViewHolder {

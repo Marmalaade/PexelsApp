@@ -10,14 +10,15 @@ import com.example.pexelsapp.presentation.generics.GenericDiffCallback
 
 class PopularRequestAdapter : RecyclerView.Adapter<PopularRequestViewHolder>() {
 
-    private var itemClick: ((String, Int) -> Unit) = { _, _ -> }
+    var itemClick: ((String, Int) -> Unit) = { _, _ -> }
+
     private val requests = mutableListOf<RequestModel>()
     private var selectedItemPosition = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularRequestViewHolder {
         val binding = PopularRequestItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PopularRequestViewHolder(binding, itemClick) { newPosition ->
-            updateSelectedItem(newPosition)
+            updateSelectedItemPosition(newPosition)
         }
     }
 
@@ -41,7 +42,7 @@ class PopularRequestAdapter : RecyclerView.Adapter<PopularRequestViewHolder>() {
         diffResult.dispatchUpdatesTo(this)
     }
 
-    private fun updateSelectedItem(position: Int) {
+    fun updateSelectedItemPosition(position: Int) {
         val prev = selectedItemPosition
         selectedItemPosition = position
         notifyItemChanged(prev)

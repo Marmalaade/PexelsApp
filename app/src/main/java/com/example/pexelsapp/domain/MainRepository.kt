@@ -7,4 +7,7 @@ import io.reactivex.Single
 interface MainRepository {
     fun getPopularRequests(): Single<List<RequestModel>>
     fun getCuratedPhotos(): Single<List<CuratedPhotoModel>>
+    fun getSelectedPhoto(id: Int): Single<CuratedPhotoModel>
+    fun getPhotosByRequest(query: String): Single<List<CuratedPhotoModel>>
+
 }

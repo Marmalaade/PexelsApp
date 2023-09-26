@@ -10,6 +10,7 @@ class MainUseCases @Inject constructor(
     private val mainRepository: MainRepository
 ) {
     fun getPopularRequestsUseCase(): Single<List<RequestModel>> = mainRepository.getPopularRequests()
-
     fun getCuratedPhotosUseCase(): Single<List<CuratedPhotoModel>> = mainRepository.getCuratedPhotos()
+    fun getSelectedPhotoUseCase(id: Int): Single<CuratedPhotoModel> = mainRepository.getSelectedPhoto(id)
+    fun getPhotosByRequest(query: String): Single<List<CuratedPhotoModel>> = mainRepository.getPhotosByRequest(query)
 }
