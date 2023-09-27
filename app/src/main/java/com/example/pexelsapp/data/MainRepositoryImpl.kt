@@ -1,18 +1,21 @@
 package com.example.pexelsapp.data
 
 import com.example.pexelsapp.common.AppConfig
+import com.example.pexelsapp.data.database.PhotosDataDataSource
 import com.example.pexelsapp.data.mappers.DataMapper
 import com.example.pexelsapp.data.network.PexelsApiService
 import com.example.pexelsapp.domain.MainRepository
 import com.example.pexelsapp.domain.models.CuratedPhotoModel
 import com.example.pexelsapp.domain.models.RequestModel
+import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
 
 class MainRepositoryImpl @Inject constructor(
     private val apiService: PexelsApiService,
-    private val mapper: DataMapper
+    private val mapper: DataMapper,
+    private val photosDataDataSource: PhotosDataDataSource
 ) : MainRepository {
 
     override fun getPopularRequests(): Single<List<RequestModel>> {
@@ -49,4 +52,34 @@ class MainRepositoryImpl @Inject constructor(
 
             }
     }
+
+    override fun getPhotosFromDataBase(): Single<List<CuratedPhotoModel>> {
+        return photosDataDataSource.getAllPhotos()
+            .map { photosDataList ->
+                photosDataList.map { photosDataEntity ->
+                    mapper.mapFromPhotosDataEntityToModel(photosDataEntity)
+                }
+            }.onErrorReturnItem(null)
+    }
+
+    override fun insertPhotoInDataBase(photo: CuratedPhotoModel): Completable {
+        return Completable.fromAction {
+            photosDataDataSource.insertPhoto(mapper.mapFromModelToPhotosDataEntity(photo))
+        }
+    }
+
+    override fun deletePhotoFromDataBase(photoId: Int): Completable {
+        return Completable.fromAction {
+            photosDataDataSource.deletePhoto(photoId)
+        }
+    }
+
+    override fun getPhotoFromDataBase(photoId: Int): Single<CuratedPhotoModel?> {
+        return photosDataDataSource.getPhoto(photoId)
+            .map { photosDataEntity ->
+                mapper.mapFromPhotosDataEntityToModel(photosDataEntity)
+            }
+            .onErrorReturnItem(null)
+    }
+
 }

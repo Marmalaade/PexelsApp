@@ -115,7 +115,7 @@ class HomeFragment : Fragment() {
         }
         val photoItemClick: (Int) -> Unit = { selectedPhotoId ->
             val action =
-                HomeFragmentDirections.actionIdHomeFragmentToIdDetailsFragment(selectedPhotoId)
+                HomeFragmentDirections.actionIdHomeFragmentToIdDetailsFragment(AppConfig.getHomeFragmentName(), selectedPhotoId)
             findNavController().navigate(action)
         }
 

@@ -9,7 +9,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.pexelsapp.R
+import com.example.pexelsapp.common.AppConfig
 import com.example.pexelsapp.databinding.FragmentDetailsBinding
 import com.example.pexelsapp.presentation.viewmodels.HomeViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -38,7 +41,8 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupListeners()
         setupObservers()
-        homeViewModel.getSelectedPhoto(arguments.selectedPhotoId)
+        checkDestinations()
+
     }
 
     private fun hideBottomNavigationView() {
@@ -56,13 +60,23 @@ class DetailsFragment : Fragment() {
     private fun setupObservers() {
         homeViewModel.selectedPhotoLiveData.observe(viewLifecycleOwner) { selectedPhoto ->
             binding.authorsInformation.text = selectedPhoto.photographer
+
+            val requestOptions = RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .skipMemoryCache(true)
+                .timeout(AppConfig.getCachingTimeout())
             Glide
                 .with(this)
                 .load(selectedPhoto.url)
+                .apply(requestOptions)
                 .into(binding.selectedPhotoItem)
         }
 
 
+    }
+
+    private fun checkDestinations() {
+        if (arguments.fragmentName == AppConfig.getHomeFragmentName()) homeViewModel.getSelectedPhoto(arguments.selectedPhotoId)
     }
 
     override fun onDestroyView() {

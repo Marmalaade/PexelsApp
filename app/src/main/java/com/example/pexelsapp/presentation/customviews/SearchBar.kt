@@ -74,7 +74,7 @@ class SearchBar @JvmOverloads constructor(
 
     private fun initSearch() {
         disposable = searchSubject
-            .debounce(300, TimeUnit.MILLISECONDS)
+            .debounce(AppConfig.getAutomaticSearchDelay(), TimeUnit.MILLISECONDS)
             .distinctUntilChanged()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())

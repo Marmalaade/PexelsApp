@@ -12,8 +12,12 @@ class AppConfig {
         private const val BASE_REQUEST = "popular_photos"
         private const val DEFAULT_LIST_POSITION = -1
         private const val CACHING_TIMEOUT = 3600000
-        fun getSpanCount() = SPAN_COUNT
+        private const val HOME_FRAGMENT_NAME = "home_fragment"
+        private const val DATABASE_NAME = "photos_database"
 
+        fun getDataBaseName() = DATABASE_NAME
+        fun getHomeFragmentName() = HOME_FRAGMENT_NAME
+        fun getSpanCount() = SPAN_COUNT
         fun getCachingTimeout() = CACHING_TIMEOUT
         fun getAutomaticSearchDelay() = AUTOMATIC_SEARCH_DELAY_MS
         fun getApiKey() = API_KEY
@@ -23,6 +27,7 @@ class AppConfig {
         fun getEmptyString() = EMPTY_STRING
         fun getBaseRequest() = BASE_REQUEST
         fun getDefaultListPosition() = DEFAULT_LIST_POSITION
+
     }
 
 }

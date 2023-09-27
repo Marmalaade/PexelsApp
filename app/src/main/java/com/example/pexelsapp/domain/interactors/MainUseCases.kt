@@ -13,4 +13,8 @@ class MainUseCases @Inject constructor(
     fun getCuratedPhotosUseCase(): Single<List<CuratedPhotoModel>> = mainRepository.getCuratedPhotos()
     fun getSelectedPhotoUseCase(id: Int): Single<CuratedPhotoModel> = mainRepository.getSelectedPhoto(id)
     fun getPhotosByRequest(query: String): Single<List<CuratedPhotoModel>> = mainRepository.getPhotosByRequest(query)
+    fun getPhotosFromDataBase(): Single<List<CuratedPhotoModel>> = mainRepository.getPhotosFromDataBase()
+    fun insertPhotoInDataBase(photo: CuratedPhotoModel) = mainRepository.insertPhotoInDataBase(photo)
+    fun deletePhotoFromDataBase(photoId: Int) = mainRepository.deletePhotoFromDataBase(photoId)
+    fun getPhotoFromDataBase(photoId: Int) = mainRepository.getPhotoFromDataBase(photoId)
 }
