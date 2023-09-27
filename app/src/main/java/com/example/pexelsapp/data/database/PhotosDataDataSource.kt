@@ -1,9 +1,12 @@
 package com.example.pexelsapp.data.database
 
 import io.reactivex.Completable
+import io.reactivex.Maybe
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
+
 
 class PhotosDataDataSource @Inject constructor(
     private val photosDataDao: PhotosDataDao
@@ -30,12 +33,16 @@ class PhotosDataDataSource @Inject constructor(
             .subscribeOn(Schedulers.io())
     }
 
-    fun getPhoto(photoId: Int): Single<PhotosDataEntity?> {
-        return Single.fromCallable {
-            photosDataDao.getPhoto(photoId)
+    fun getPhoto(photoId: Int): Maybe<PhotosDataEntity> {
+        return Maybe.create { emitter ->
+            val photo = photosDataDao.getPhoto(photoId)
+            if (photo != null) {
+                emitter.onSuccess(photo)
+            } else {
+                emitter.onComplete()
+            }
         }
             .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
-
-
 }

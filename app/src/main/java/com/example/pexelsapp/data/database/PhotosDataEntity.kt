@@ -3,7 +3,6 @@ package com.example.pexelsapp.data.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.pexelsapp.common.AppConfig
 
 @Entity(tableName = "photos_data_table")
 data class PhotosDataEntity(

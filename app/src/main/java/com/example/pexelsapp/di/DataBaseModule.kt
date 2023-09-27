@@ -13,7 +13,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DataBaseModule {
+object DataBaseModule {
     @Provides
     fun providePhotosDataBase(@ApplicationContext context: Context): PhotosDataDataBase {
         return Room.databaseBuilder(context, PhotosDataDataBase::class.java, AppConfig.getDataBaseName())
@@ -22,6 +22,5 @@ class DataBaseModule {
 
     @Provides
     fun providePhotosDao(database: PhotosDataDataBase): PhotosDataDao = database.photosDao()
-
 
 }

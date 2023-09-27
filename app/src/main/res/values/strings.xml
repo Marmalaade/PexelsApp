@@ -18,4 +18,8 @@
     <string name="no_internet_icon">No internet connection</string>
     <string name="no_internet_connection">Check your internet connection</string>
     <string name="no_image_text">No image found</string>
+    <string name="saved_to_gallery">Image has been successfully saved</string>
+    <string name="error_saving">Saving image error</string>
+    <string name="image_path">\"image/jpeg\"</string>
+    <string name="image_format">\".jpg\"</string>
 </resources>

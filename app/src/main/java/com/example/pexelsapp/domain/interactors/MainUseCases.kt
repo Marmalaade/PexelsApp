@@ -3,6 +3,7 @@ package com.example.pexelsapp.domain.interactors
 import com.example.pexelsapp.domain.MainRepository
 import com.example.pexelsapp.domain.models.CuratedPhotoModel
 import com.example.pexelsapp.domain.models.RequestModel
+import io.reactivex.Maybe
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -16,5 +17,5 @@ class MainUseCases @Inject constructor(
     fun getPhotosFromDataBase(): Single<List<CuratedPhotoModel>> = mainRepository.getPhotosFromDataBase()
     fun insertPhotoInDataBase(photo: CuratedPhotoModel) = mainRepository.insertPhotoInDataBase(photo)
     fun deletePhotoFromDataBase(photoId: Int) = mainRepository.deletePhotoFromDataBase(photoId)
-    fun getPhotoFromDataBase(photoId: Int) = mainRepository.getPhotoFromDataBase(photoId)
+    fun getPhotoFromDataBase(photoId: Int):Maybe<CuratedPhotoModel?> = mainRepository.getPhotoFromDataBase(photoId)
 }

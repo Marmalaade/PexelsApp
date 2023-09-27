@@ -1,5 +1,6 @@
 package com.example.pexelsapp.data
 
+import android.util.Log
 import com.example.pexelsapp.common.AppConfig
 import com.example.pexelsapp.data.database.PhotosDataDataSource
 import com.example.pexelsapp.data.mappers.DataMapper
@@ -8,7 +9,9 @@ import com.example.pexelsapp.domain.MainRepository
 import com.example.pexelsapp.domain.models.CuratedPhotoModel
 import com.example.pexelsapp.domain.models.RequestModel
 import io.reactivex.Completable
+import io.reactivex.Maybe
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
@@ -25,6 +28,7 @@ class MainRepositoryImpl @Inject constructor(
                     mapper.mapToRequestModel(it)
                 } ?: emptyList()
             }
+            .subscribeOn(Schedulers.io())
     }
 
     override fun getCuratedPhotos(): Single<List<CuratedPhotoModel>> {
@@ -34,6 +38,7 @@ class MainRepositoryImpl @Inject constructor(
                     mapper.mapToCuratedPhotoModel(it)
                 } ?: emptyList()
             }
+            .subscribeOn(Schedulers.io())
     }
 
     override fun getSelectedPhoto(id: Int): Single<CuratedPhotoModel> {
@@ -41,6 +46,7 @@ class MainRepositoryImpl @Inject constructor(
             .map { response ->
                 mapper.mapToCuratedPhotoModel(response)
             }
+            .subscribeOn(Schedulers.io())
     }
 
     override fun getPhotosByRequest(query: String): Single<List<CuratedPhotoModel>> {
@@ -49,8 +55,8 @@ class MainRepositoryImpl @Inject constructor(
                 response.photos?.map {
                     mapper.mapToCuratedPhotoModel(it)
                 } ?: emptyList()
-
             }
+            .subscribeOn(Schedulers.io())
     }
 
     override fun getPhotosFromDataBase(): Single<List<CuratedPhotoModel>> {
@@ -59,27 +65,34 @@ class MainRepositoryImpl @Inject constructor(
                 photosDataList.map { photosDataEntity ->
                     mapper.mapFromPhotosDataEntityToModel(photosDataEntity)
                 }
-            }.onErrorReturnItem(null)
+            }
+            .subscribeOn(Schedulers.io())
     }
 
     override fun insertPhotoInDataBase(photo: CuratedPhotoModel): Completable {
         return Completable.fromAction {
+            Log.e("insert", "$photo")
             photosDataDataSource.insertPhoto(mapper.mapFromModelToPhotosDataEntity(photo))
         }
+            .subscribeOn(Schedulers.io())
     }
 
     override fun deletePhotoFromDataBase(photoId: Int): Completable {
         return Completable.fromAction {
+            Log.e("delete", "$photoId")
             photosDataDataSource.deletePhoto(photoId)
         }
+            .subscribeOn(Schedulers.io())
     }
 
-    override fun getPhotoFromDataBase(photoId: Int): Single<CuratedPhotoModel?> {
+    override fun getPhotoFromDataBase(photoId: Int): Maybe<CuratedPhotoModel?> {
+        Log.e("get", "$photoId")
         return photosDataDataSource.getPhoto(photoId)
             .map { photosDataEntity ->
                 mapper.mapFromPhotosDataEntityToModel(photosDataEntity)
             }
-            .onErrorReturnItem(null)
+            .subscribeOn(Schedulers.io())
     }
+
 
 }

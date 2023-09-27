@@ -36,5 +36,8 @@
         <action
             android:id="@+id/action_detailsFragment_to_homeFragment"
             app:destination="@id/id_home_fragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_bookmarksFragment"
+            app:destination="@id/id_bookmarks_fragment" />
     </fragment>
 </navigation>

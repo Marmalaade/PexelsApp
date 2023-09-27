@@ -27,7 +27,11 @@ class CuratedPhotosViewHolder(
             .into(binding.curatedPhotoItem)
 
         itemView.setOnClickListener {
-            itemClick.invoke(curatedPhoto.id)
+            itemView.animate().scaleX(0.9f).scaleY(0.9f).setDuration(50).withEndAction {
+                itemView.animate().scaleX(1f).scaleY(1f).setDuration(50).start()
+                itemClick(curatedPhoto.id)
+            }.start()
         }
+
     }
 }

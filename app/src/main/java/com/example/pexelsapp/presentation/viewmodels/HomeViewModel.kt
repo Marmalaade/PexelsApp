@@ -1,5 +1,6 @@
 package com.example.pexelsapp.presentation.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,8 +9,6 @@ import com.example.pexelsapp.domain.interactors.MainUseCases
 import com.example.pexelsapp.domain.models.CuratedPhotoModel
 import com.example.pexelsapp.domain.models.RequestModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -44,6 +43,12 @@ class HomeViewModel @Inject constructor(
 
     private val _dataLoadingProgressLiveData = MutableLiveData<Int>()
     val dataLoadingProgressLiveData: LiveData<Int> get() = _dataLoadingProgressLiveData
+
+    private val _ifPhotoInDataBaseLiveData = MutableLiveData<Boolean>(false)
+    val ifPhotoInDataBaseLiveData: LiveData<Boolean> get() = _ifPhotoInDataBaseLiveData
+    private val _mama = MutableLiveData<List<CuratedPhotoModel>>()
+    val mama: LiveData<List<CuratedPhotoModel>> get() = _mama
+
 
     fun setCurrentQuery(query: String) {
         currentQuery = query
@@ -128,5 +133,65 @@ class HomeViewModel @Inject constructor(
         super.onCleared()
     }
 
+    fun getAllPhotosFromDataBase() {
+        disposable = mainUseCases.getPhotosFromDataBase()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { result ->
+                    _mama.value = result
+                    Log.e("resulttt","$result")
+                },
+                { error ->
+                    println(error.message)
+                }
+            )
+    }
 
+    fun insertPhotosInDB(photo: CuratedPhotoModel) {
+        disposable = mainUseCases.insertPhotoInDataBase(photo)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    Log.e("insertsection", "Фотография успешно вставлена.")
+                    _ifPhotoInDataBaseLiveData.value = true
+                },
+                { error ->
+                    println(error.message)
+                }
+            )
+    }
+
+    fun deletePhotoFromDataBase(id: Int) {
+        disposable = mainUseCases.deletePhotoFromDataBase(id)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    Log.e("deletinsection", "Фотография успешно уделана.")
+                    _ifPhotoInDataBaseLiveData.value = false
+                },
+                { error ->
+                    println(error.message)
+                }
+            )
+    }
+
+    fun getPhotoFromDataBase(selectedPhotoId: Int) {
+        Log.e("Method", "getPhotoFromDataBase")
+        disposable = mainUseCases.getPhotoFromDataBase(selectedPhotoId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { result ->
+                    Log.e("result", "$result")
+                    _ifPhotoInDataBaseLiveData.value = true
+                    _selectedPhotoLiveData.value = result
+                },
+                { error ->
+                    Log.e("error", "${error.message}")
+                    _networkErrorLiveData.value = true
+                    println(error.message)
+                }
+            )
+        _dataLoadingLiveData.value = false
+    }
 }
