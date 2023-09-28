@@ -22,4 +22,5 @@
     <string name="error_saving">Saving image error</string>
     <string name="image_path">\"image/jpeg\"</string>
     <string name="image_format">\".jpg\"</string>
+    <string name="bookmark_button">Add photo to database</string>
 </resources>

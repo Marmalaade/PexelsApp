@@ -1,6 +1,5 @@
 package com.example.pexelsapp.data
 
-import android.util.Log
 import com.example.pexelsapp.common.AppConfig
 import com.example.pexelsapp.data.database.PhotosDataDataSource
 import com.example.pexelsapp.data.mappers.DataMapper
@@ -70,23 +69,17 @@ class MainRepositoryImpl @Inject constructor(
     }
 
     override fun insertPhotoInDataBase(photo: CuratedPhotoModel): Completable {
-        return Completable.fromAction {
-            Log.e("insert", "$photo")
-            photosDataDataSource.insertPhoto(mapper.mapFromModelToPhotosDataEntity(photo))
-        }
+        return photosDataDataSource.insertPhoto(mapper.mapFromModelToPhotosDataEntity(photo))
             .subscribeOn(Schedulers.io())
     }
 
     override fun deletePhotoFromDataBase(photoId: Int): Completable {
-        return Completable.fromAction {
-            Log.e("delete", "$photoId")
-            photosDataDataSource.deletePhoto(photoId)
-        }
+        return photosDataDataSource.deletePhoto(photoId)
             .subscribeOn(Schedulers.io())
     }
 
+
     override fun getPhotoFromDataBase(photoId: Int): Maybe<CuratedPhotoModel?> {
-        Log.e("get", "$photoId")
         return photosDataDataSource.getPhoto(photoId)
             .map { photosDataEntity ->
                 mapper.mapFromPhotosDataEntityToModel(photosDataEntity)

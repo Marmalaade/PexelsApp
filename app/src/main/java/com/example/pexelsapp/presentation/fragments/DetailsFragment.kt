@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,10 +20,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.pexelsapp.R
 import com.example.pexelsapp.common.AppConfig
-import com.example.pexelsapp.data.database.PhotosDataDataBase
 import com.example.pexelsapp.databinding.FragmentDetailsBinding
 import com.example.pexelsapp.domain.models.CuratedPhotoModel
-import com.example.pexelsapp.presentation.viewmodels.HomeViewModel
+import com.example.pexelsapp.presentation.viewmodels.DetailsViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Single
@@ -40,7 +38,7 @@ class DetailsFragment : Fragment() {
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
-    private val homeViewModel by viewModels<HomeViewModel>()
+    private val detailsViewModel by viewModels<DetailsViewModel>()
     private val arguments: DetailsFragmentArgs by navArgs()
     private var currentPhoto: CuratedPhotoModel? = null
 
@@ -49,7 +47,6 @@ class DetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
-
         hideBottomNavigationView()
 
         return binding.root
@@ -59,8 +56,7 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupListeners()
         setupObservers()
-        checkDestinations()
-        homeViewModel.getAllPhotosFromDataBase()
+        checkDestinationsAndData()
     }
 
     private fun hideBottomNavigationView() {
@@ -78,13 +74,13 @@ class DetailsFragment : Fragment() {
 
         binding.bookmarkButton.setOnClickListener {
             currentPhoto?.let { photo ->
-                homeViewModel.insertPhotosInDB(photo)
+                detailsViewModel.insertPhotosInDB(photo)
             }
         }
 
         binding.bookmarkButtonActive.setOnClickListener {
             currentPhoto?.id?.let { id ->
-                homeViewModel.deletePhotoFromDataBase(id)
+                detailsViewModel.deletePhotoFromDataBase(id)
             }
         }
 
@@ -169,23 +165,17 @@ class DetailsFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        homeViewModel.selectedPhotoLiveData.observe(viewLifecycleOwner) { selectedPhoto ->
+        detailsViewModel.selectedPhotoLiveData.observe(viewLifecycleOwner) { selectedPhoto ->
             updatePhoto(selectedPhoto)
         }
 
-        homeViewModel.ifPhotoInDataBaseLiveData.observe(viewLifecycleOwner) { ifPhotoInDataBase ->
-            Log.e("flag", "$ifPhotoInDataBase")
+        detailsViewModel.ifPhotoInDataBaseLiveData.observe(viewLifecycleOwner) { ifPhotoInDataBase ->
             with(binding) {
                 bookmarkButton.isVisible = !ifPhotoInDataBase
                 bookmarkButtonActive.isVisible = ifPhotoInDataBase
             }
         }
 
-        homeViewModel.mama.observe(viewLifecycleOwner) { photos ->
-            for (el in photos) {
-                Log.e("el ", "$el")
-            }
-        }
     }
 
     private fun updatePhoto(photo: CuratedPhotoModel?) {
@@ -210,13 +200,12 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    private fun checkDestinations() {
-        Log.e("argid", "${arguments.selectedPhotoId}")
-        if (arguments.fragmentName == AppConfig.getHomeFragmentName()) homeViewModel.getSelectedPhoto(arguments.selectedPhotoId)
+    private fun checkDestinationsAndData() {
+        if (arguments.fragmentName == AppConfig.getHomeFragmentName()) detailsViewModel.getSelectedPhoto(arguments.selectedPhotoId)
         else {
-            homeViewModel.getPhotoFromDataBase(arguments.selectedPhotoId)
+            detailsViewModel.getPhotoFromDataBase(arguments.selectedPhotoId)
         }
-        homeViewModel.getPhotoFromDataBase(arguments.selectedPhotoId)
+        detailsViewModel.getPhotoFromDataBase(arguments.selectedPhotoId)
     }
 
     override fun onDestroyView() {

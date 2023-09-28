@@ -141,7 +141,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:background="@drawable/bookmark_background"
-            android:contentDescription="@string/download_button"
+            android:contentDescription="@string/bookmark_button"
             android:padding="@dimen/bottom_section_elements_padding"
             android:src="@drawable/bookmark_details_inactive" />
 
