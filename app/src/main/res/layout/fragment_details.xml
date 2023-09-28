@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorOnBackground"
     tools:context=".presentation.fragments.DetailsFragment">
 
     <ImageButton
@@ -25,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/no_image_text"
-        android:textColor="@color/black_primary"
+        android:textColor="?attr/colorOnPrimary"
         android:textSize="14sp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/no_image_button"
@@ -41,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/explore_text"
-        android:textColor="@color/red_primary"
+        android:textColor="?attr/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="gone"
@@ -55,7 +56,7 @@
         android:id="@+id/authors_information"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black_primary"
+        android:textColor="?attr/colorOnPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:flow_verticalAlign="center"
@@ -73,7 +74,7 @@
         android:layout_marginStart="@dimen/progress_bar_margin"
         android:layout_marginTop="@dimen/small_margin"
         android:layout_marginEnd="@dimen/progress_bar_margin"
-        android:progressTint="@color/red_primary"
+        android:progressTint="?attr/colorPrimary"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -104,7 +105,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/medium_margin"
-        android:background="@color/white_primary"
+        android:background="?attr/colorOnBackground"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
@@ -118,7 +119,7 @@
             android:paddingStart="@dimen/download_text_start_padding"
             android:paddingEnd="@dimen/download_text_end_padding"
             android:text="@string/download_text"
-            android:textColor="@color/black_primary"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="14sp"
             tools:ignore="RelativeOverlap" />
 
@@ -142,7 +143,7 @@
             android:background="@drawable/bookmark_background"
             android:contentDescription="@string/download_button"
             android:padding="@dimen/bottom_section_elements_padding"
-            android:src="@drawable/bookmark_icon_inactive" />
+            android:src="@drawable/bookmark_details_inactive" />
 
         <ImageButton
             android:id="@+id/bookmark_button_active"
@@ -153,7 +154,7 @@
             android:background="@drawable/bookmark_background_active"
             android:contentDescription="@string/download_button"
             android:padding="@dimen/bottom_section_elements_padding"
-            android:src="@drawable/bookmark_icon_active"
+            android:src="@drawable/bookmark_details_active"
             android:visibility="gone" />
 
 

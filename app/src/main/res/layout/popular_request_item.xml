@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white_primary">
+    android:background="?attr/colorOnBackground">
 
     <TextView
         android:id="@+id/popular_requests_item"
@@ -16,7 +16,7 @@
         android:paddingTop="@dimen/list_item_padding"
         android:paddingEnd="@dimen/base_margin"
         android:paddingBottom="@dimen/list_item_padding"
-        android:textColor="@color/black_primary"
+        android:textColor="?attr/colorOnPrimary"
         tools:text="Text"
         />
 </LinearLayout>

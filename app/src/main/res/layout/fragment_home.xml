@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorOnBackground"
     tools:context=".presentation.fragments.HomeFragment">
 
     <com.example.pexelsapp.presentation.customviews.SearchBar
@@ -25,6 +26,7 @@
         android:contentDescription="@string/no_internet_icon"
         android:src="@drawable/no_internet_connection_icon"
         android:visibility="gone"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/no_results_text"
-        android:textColor="@color/black_primary"
+        android:textColor="?attr/colorOnPrimary"
         android:textSize="14sp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/no_results_button"
@@ -52,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/explore_text"
-        android:textColor="@color/red_primary"
+        android:textColor="?attr/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="gone"
@@ -69,6 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/medium_margin"
         android:layout_marginTop="@dimen/base_margin"
+        android:clipToPadding="false"
         app:layout_constraintTop_toBottomOf="@id/search_bar" />
 
     <ProgressBar
@@ -79,7 +82,7 @@
         android:layout_marginStart="@dimen/progress_bar_margin"
         android:layout_marginTop="@dimen/small_margin"
         android:layout_marginEnd="@dimen/progress_bar_margin"
-        android:progressTint="@color/red_primary"
+        android:progressTint="?attr/colorPrimary"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -91,6 +94,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/medium_margin"
+        android:layout_marginStart="@dimen/medium_margin"
+        android:layout_marginEnd="@dimen/medium_margin"
         android:clipToPadding="false"
         app:layout_constraintTop_toBottomOf="@id/popular_request_recycler"
         tools:layout_editor_absoluteX="14dp" />

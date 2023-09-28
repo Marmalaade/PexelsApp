@@ -1,25 +1,21 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.PexelsApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/red_primary</item>
+        <item name="colorOnBackground">@color/white_primary</item>
         <item name="colorPrimaryVariant">@color/gray_light_palette</item>
-        <item name="colorOnPrimary">@color/dark_gray_light_palette</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/gray_light_palette</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnPrimary">@color/black_primary</item>
+        <item name="colorSecondary">@color/dark_gray_light_palette</item>
         <!-- Status bar color. -->
-        <!-- Customize your theme here. -->
-        <item name="fontFamily">@font/mulish</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:fontFamily">@font/mulish</item>
     </style>
 
-    <style name="Theme.PexelsApp.SplashScreen" parent="Theme.PexelsApp">
-        <item name="android:windowSplashScreenBackground">@color/red_primary</item>
-        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_splashscreen_logo_animated</item>
-        <item name="android:windowSplashScreenAnimationDuration">800</item>
-        <item name="postSplashScreenTheme">@style/Theme.PexelsApp</item>
+
+    <style name="Theme.PexelsApp.Launcher" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_logo</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>

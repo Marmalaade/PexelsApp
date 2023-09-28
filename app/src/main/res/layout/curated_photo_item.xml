@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.example.pexelsapp.presentation.customviews.RoundedImageView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.facebook.shimmer.ShimmerFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/curated_photo_item"
+    android:id="@+id/shimmer_view_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/list_item_padding"
-    android:adjustViewBounds="true"
-    android:background="@drawable/placeholder"
-    android:contentDescription="@string/curated_photo_item"
-    android:scaleType="center"
-    app:cornerRadius="@dimen/picture_corner_radius" />
+    android:layout_gravity="center">
 
+    <com.example.pexelsapp.presentation.customviews.RoundedImageView
+        android:id="@+id/curated_photo_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/list_item_padding"
+        android:adjustViewBounds="true"
+        android:background="@drawable/placeholder"
+        android:contentDescription="@string/curated_photo_item"
+        android:scaleType="center"
+        app:cornerRadius="@dimen/picture_corner_radius" />
+
+</com.facebook.shimmer.ShimmerFrameLayout>

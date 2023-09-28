@@ -6,6 +6,7 @@ import com.example.pexelsapp.data.apimodels.RequestCollectionResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -16,7 +17,7 @@ interface PexelsApiService {
         @Header("Authorization") apiKey: String,
         @Query("query") category: String,
         @Query("per_page") perPage: Int,
-    ):Single<CuratedPhotosResponse>
+    ): Single<CuratedPhotosResponse>
 
     @GET("collections/featured")
     fun getFeaturedCollections(

@@ -1,15 +1,13 @@
 package com.example.pexelsapp.presentation
 
 import android.os.Bundle
-import android.util.Log
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.pexelsapp.R
 import com.example.pexelsapp.databinding.ActivityMainBinding
-import com.example.pexelsapp.domain.MainRepository
-import com.example.pexelsapp.domain.interactors.MainUseCases
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
