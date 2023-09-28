@@ -23,4 +23,7 @@
     <string name="image_path">\"image/jpeg\"</string>
     <string name="image_format">\".jpg\"</string>
     <string name="bookmark_button">Add photo to database</string>
+    <string name="bookmarks_text">Bookmarks</string>
+    <string name="no_saved_result">You haven\'t saved anything yet</string>
+    <string name="bookmark_photo">Bookmark photo item</string>
 </resources>

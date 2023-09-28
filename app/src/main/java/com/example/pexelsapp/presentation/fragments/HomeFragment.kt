@@ -1,11 +1,6 @@
 package com.example.pexelsapp.presentation.fragments
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.pexelsapp.R
 import com.example.pexelsapp.common.AppConfig
+import com.example.pexelsapp.data.network.NetworkHelper
 import com.example.pexelsapp.databinding.FragmentHomeBinding
 import com.example.pexelsapp.domain.models.CuratedPhotoModel
 import com.example.pexelsapp.domain.models.RequestModel
@@ -151,16 +147,9 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun getNetworkStatus(): Boolean {
-        val connectivityManager =
-            context?.applicationContext?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkCapabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
-    }
-
     private fun updatePhotos(photos: List<CuratedPhotoModel>) {
         if (photos.isNotEmpty()) {
-            if (!getNetworkStatus()) {
+            if (!context?.let { NetworkHelper(it).isNetworkAvailable() }!!) {
                 showNoInternetConnectionToast()
             }
             hideNoResultsViews()

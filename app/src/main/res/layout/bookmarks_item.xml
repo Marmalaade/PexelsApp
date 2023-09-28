@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.example.pexelsapp.presentation.customviews.RoundedImageView
+        android:id="@+id/curated_photo_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/list_item_padding"
+        android:adjustViewBounds="true"
+        android:background="@drawable/placeholder"
+        android:contentDescription="@string/bookmark_photo"
+        android:scaleType="center"
+        app:cornerRadius="@dimen/picture_corner_radius" />
+
+    <TextView
+        android:id="@+id/authors_initials"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/list_item_padding"
+        android:layout_marginEnd="@dimen/list_item_padding"
+        android:layout_marginBottom="@dimen/list_item_padding"
+        android:background="@drawable/bookmark_image_background"
+        android:padding="@dimen/progress_bar_margin"
+        android:textAlignment="center"
+        android:textColor="@color/white_primary"
+        android:textSize="14sp" />
+
+</RelativeLayout>

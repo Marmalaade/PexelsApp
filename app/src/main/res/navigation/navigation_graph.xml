@@ -12,14 +12,20 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_id_home_fragment_to_id_details_fragment"
-            app:destination="@id/id_details_fragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/id_details_fragment" />
     </fragment>
     <fragment
         android:id="@+id/id_bookmarks_fragment"
         android:name="com.example.pexelsapp.presentation.fragments.BookMarksFragment"
         android:label="fragment_bookmarks"
-        tools:layout="@layout/fragment_book_marks" />
+        tools:layout="@layout/fragment_bookmarks">
+        <action
+            android:id="@+id/action_id_bookmarks_fragment_to_id_details_fragment"
+            app:destination="@id/id_details_fragment" />
+        <action
+            android:id="@+id/action_id_bookmarks_fragment_to_id_home_fragment"
+            app:destination="@id/id_home_fragment" />
+    </fragment>
     <fragment
         android:id="@+id/id_details_fragment"
         android:name="com.example.pexelsapp.presentation.fragments.DetailsFragment"
@@ -36,8 +42,5 @@
         <action
             android:id="@+id/action_detailsFragment_to_homeFragment"
             app:destination="@id/id_home_fragment" />
-        <action
-            android:id="@+id/action_detailsFragment_to_bookmarksFragment"
-            app:destination="@id/id_bookmarks_fragment" />
     </fragment>
 </navigation>

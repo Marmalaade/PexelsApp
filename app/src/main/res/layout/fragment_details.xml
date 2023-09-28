@@ -20,7 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <TextView
         android:id="@+id/no_image_text_view"
         android:layout_width="wrap_content"
@@ -152,7 +151,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:background="@drawable/bookmark_background_active"
-            android:contentDescription="@string/download_button"
+            android:contentDescription="@string/bookmark_text"
             android:padding="@dimen/bottom_section_elements_padding"
             android:src="@drawable/bookmark_details_active"
             android:visibility="gone" />

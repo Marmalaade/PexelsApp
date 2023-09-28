@@ -13,6 +13,7 @@ class AppConfig {
         private const val DEFAULT_LIST_POSITION = -1
         private const val CACHING_TIMEOUT = 3600000
         private const val HOME_FRAGMENT_NAME = "home_fragment"
+        private const val BOOKMARK_FRAGMENT_NAME = "home_fragment"
         private const val DATABASE_NAME = "photos_database"
         private const val CACHE_CONTROL = "Cache-Control"
         private const val CACHE_SUBDIRECTORY = "http-cache"
@@ -31,6 +32,7 @@ class AppConfig {
         fun getCacheControl() = CACHE_CONTROL
 
         fun getCacheSubDir() = CACHE_SUBDIRECTORY
+        fun getBookmarkFragmentName() = BOOKMARK_FRAGMENT_NAME
     }
 
 }
