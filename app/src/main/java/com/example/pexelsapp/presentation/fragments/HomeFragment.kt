@@ -74,9 +74,10 @@ class HomeFragment : Fragment() {
             homeViewModel.getCuratedPhotos()
         }
 
-        binding.noInternetIcon.setOnClickListener {
+        binding.noInternetButton.setOnClickListener {
             if (homeViewModel.getCurrentQuery() == AppConfig.getBaseRequest()) homeViewModel.getCuratedPhotos()
             else homeViewModel.getPhotosByRequest(homeViewModel.getCurrentQuery())
+            hideNetworkErrorStub()
         }
     }
 
@@ -145,8 +146,26 @@ class HomeFragment : Fragment() {
             updatePhotos(photos)
         }
 
+        homeViewModel.photosLoadingNetworkErrorLiveData.observe(viewLifecycleOwner) { isLoadingError ->
+            showNetworkErrorStub(isLoadingError)
+        }
+        homeViewModel.homePhotosLoadingLiveData.observe(viewLifecycleOwner) { isLoading ->
+            changeProgressBarVisibility(isLoading)
+        }
+
+        homeViewModel.loadingProgressLiveData.observe(viewLifecycleOwner) { loadingProgress ->
+            binding.progressBar.progress = loadingProgress
+
+        }
+
     }
 
+    private fun changeProgressBarVisibility(isLoading: Boolean) {
+        with(binding) {
+            progressBar.isVisible = isLoading
+            progressBar.progress = 0
+        }
+    }
     private fun updatePhotos(photos: List<CuratedPhotoModel>) {
         if (photos.isNotEmpty()) {
             if (!context?.let { NetworkHelper(it).isNetworkAvailable() }!!) {
@@ -161,7 +180,25 @@ class HomeFragment : Fragment() {
 
     private fun showNoInternetConnectionToast() {
         val message = getString(R.string.no_internet_connection)
-        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+        Toast.makeText(this@HomeFragment.context, message, Toast.LENGTH_LONG).show()
+    }
+
+    private fun showNetworkErrorStub(isError: Boolean) {
+        if (isError) {
+            curatedPhotosAdapter.updateCuratedPhotos(emptyList())
+            showNetworkErrorStub()
+            showNoInternetConnectionToast()
+        } else hideNetworkErrorStub()
+    }
+
+    private fun hideNetworkErrorStub() {
+        binding.noInternetIcon.isVisible = false
+        binding.noInternetButton.isVisible = false
+    }
+
+    private fun showNetworkErrorStub() {
+        binding.noInternetIcon.isVisible = true
+        binding.noInternetButton.isVisible = true
     }
 
     private fun hideNoResultsViews() {

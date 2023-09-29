@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import com.example.pexelsapp.domain.interactors.MainUseCases
 import com.example.pexelsapp.domain.models.CuratedPhotoModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
@@ -24,6 +26,12 @@ class DetailsViewModel @Inject constructor(
 
     private val _ifPhotoInDataBaseLiveData = MutableLiveData(false)
     val ifPhotoInDataBaseLiveData: LiveData<Boolean> get() = _ifPhotoInDataBaseLiveData
+
+    private val _detailsPhotoLoadingLiveData = MutableLiveData(false)
+    val detailsPhotoLoadingLiveData: LiveData<Boolean> get() = _detailsPhotoLoadingLiveData
+
+    private val _loadingProgressLivedata = MutableLiveData(0)
+    val loadingProgressLiveData: LiveData<Int> get() = _loadingProgressLivedata
     fun insertPhotosInDB(photo: CuratedPhotoModel) {
         disposable = mainUseCases.insertPhotoInDataBase(photo)
             .observeOn(AndroidSchedulers.mainThread())
@@ -66,18 +74,35 @@ class DetailsViewModel @Inject constructor(
     }
 
     fun getSelectedPhoto(id: Int) {
+        _detailsPhotoLoadingLiveData.postValue(true)
         disposable = mainUseCases.getSelectedPhotoUseCase(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { result ->
+                    _detailsPhotoLoadingLiveData.postValue(false)
                     _selectedPhotoLiveData.postValue(result)
                 },
                 { error ->
-
+                    _detailsPhotoLoadingLiveData.postValue(false)
                     println(error.message)
                 }
             )
+        Observable.interval(30.toLong(), TimeUnit.MILLISECONDS)
+            .take(100.toLong())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { step ->
+                    val currentProgress = ((step + 1) * 1)
+                    _loadingProgressLivedata.postValue(currentProgress.toInt())
+                },
+                { error ->
+                    println(error.message)
+                }
+            )
+            .let {
+                disposable = it
+            }
     }
 
     override fun onCleared() {

@@ -26,4 +26,5 @@
     <string name="bookmarks_text">Bookmarks</string>
     <string name="no_saved_result">You haven\'t saved anything yet</string>
     <string name="bookmark_photo">Bookmark photo item</string>
+    <string name="try_again">Try Again</string>
 </resources>

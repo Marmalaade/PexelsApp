@@ -1,6 +1,7 @@
 package com.example.pexelsapp.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,6 +70,22 @@ class BookMarksFragment : Fragment() {
     private fun setupObservers() {
         bookmarksViewModel.savedPhotosLiveData.observe(viewLifecycleOwner) { savedPhotos ->
             updateSavedPhotos(savedPhotos)
+        }
+
+        bookmarksViewModel.savedPhotosLoadingLiveData.observe(viewLifecycleOwner) { isLoading ->
+            changeProgressBarVisibility(isLoading)
+        }
+
+        bookmarksViewModel.loadingProgressLiveData.observe(viewLifecycleOwner) { loadingProgress ->
+            binding.progressBar.progress = loadingProgress
+
+        }
+    }
+
+    private fun changeProgressBarVisibility(isLoading: Boolean) {
+        with(binding) {
+            progressBar.isVisible = isLoading
+            progressBar.progress = 0
         }
     }
 

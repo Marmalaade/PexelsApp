@@ -176,6 +176,22 @@ class DetailsFragment : Fragment() {
             }
         }
 
+        detailsViewModel.detailsPhotoLoadingLiveData.observe(viewLifecycleOwner) { isLoading ->
+            changeProgressBarVisibility(isLoading)
+        }
+
+        detailsViewModel.loadingProgressLiveData.observe(viewLifecycleOwner) { loadingProgress ->
+            binding.progressBar.progress = loadingProgress
+
+        }
+
+    }
+
+    private fun changeProgressBarVisibility(isLoading: Boolean) {
+        with(binding) {
+            progressBar.isVisible = isLoading
+            progressBar.progress = 0
+        }
     }
 
     private fun updatePhoto(photo: CuratedPhotoModel?) {
