@@ -16,5 +16,6 @@
     <dimen name="download_text_end_padding">33dp</dimen>
     <dimen name="bottom_section_elements_padding">15dp</dimen>
     <dimen name="progress_bar_margin">8dp</dimen>
+    <dimen name="download_button_padding">17dp</dimen>
 
 </resources>

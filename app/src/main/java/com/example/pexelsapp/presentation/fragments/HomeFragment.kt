@@ -166,6 +166,7 @@ class HomeFragment : Fragment() {
             progressBar.progress = 0
         }
     }
+
     private fun updatePhotos(photos: List<CuratedPhotoModel>) {
         if (photos.isNotEmpty()) {
             if (!context?.let { NetworkHelper(it).isNetworkAvailable() }!!) {

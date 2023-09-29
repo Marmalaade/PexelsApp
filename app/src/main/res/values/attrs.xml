@@ -3,4 +3,5 @@
     <declare-styleable name="RoundedImageView">
         <attr name="cornerRadius" format="dimension" />
     </declare-styleable>
+
 </resources>

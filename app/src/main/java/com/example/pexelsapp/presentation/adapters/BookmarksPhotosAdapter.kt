@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pexelsapp.databinding.BookmarksItemBinding
 import com.example.pexelsapp.domain.models.CuratedPhotoModel
-import com.example.pexelsapp.presentation.generics.GenericDiffCallback
+import com.example.pexelsapp.presentation.generics.DiffCallback
 
 class BookmarksPhotosAdapter : RecyclerView.Adapter<BookmarksPhotosViewHolder>() {
     var itemClick: (Int) -> Unit = {}
@@ -27,7 +27,7 @@ class BookmarksPhotosAdapter : RecyclerView.Adapter<BookmarksPhotosViewHolder>()
 
     fun updateSavedPhotos(newList: List<CuratedPhotoModel>) {
         val diffResult = DiffUtil.calculateDiff(
-            GenericDiffCallback(
+            DiffCallback(
                 oldList = savedPhotos,
                 newList = newList,
                 areItemsTheSame = { old, new -> old.id == new.id },

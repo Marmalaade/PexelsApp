@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pexelsapp.databinding.PopularRequestItemBinding
 import com.example.pexelsapp.domain.models.RequestModel
-import com.example.pexelsapp.presentation.generics.GenericDiffCallback
+import com.example.pexelsapp.presentation.generics.DiffCallback
 
 class PopularRequestAdapter : RecyclerView.Adapter<PopularRequestViewHolder>() {
 
@@ -30,7 +30,7 @@ class PopularRequestAdapter : RecyclerView.Adapter<PopularRequestViewHolder>() {
 
     fun updateRequests(newList: List<RequestModel>) {
         val diffResult = DiffUtil.calculateDiff(
-            GenericDiffCallback(
+            DiffCallback(
                 oldList = requests,
                 newList = newList,
                 areItemsTheSame = { old, new -> old.title == new.title },

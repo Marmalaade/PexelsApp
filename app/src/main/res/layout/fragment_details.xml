@@ -80,24 +80,24 @@
         app:layout_constraintTop_toBottomOf="@id/back_button"
         tools:visibility="visible" />
 
-    <ScrollView
-        android:id="@+id/selected_photo_scroll_view"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/photo_card_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="@dimen/medium_margin"
-        android:contentDescription="@string/selected_photo_scroll_view"
+        app:cardCornerRadius="@dimen/picture_corner_radius"
         app:layout_constraintBottom_toTopOf="@id/bottom_functional_buttons"
         app:layout_constraintTop_toBottomOf="@id/back_button">
 
-        <com.example.pexelsapp.presentation.customviews.RoundedImageView
+        <com.github.chrisbanes.photoview.PhotoView
             android:id="@+id/selected_photo_item"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:background="@drawable/placeholder"
-            android:scaleType="center"
-            app:cornerRadius="@dimen/picture_corner_radius" />
-    </ScrollView>
+            android:scaleType="center" />
+
+    </androidx.cardview.widget.CardView>
 
     <RelativeLayout
         android:id="@+id/bottom_functional_buttons"
@@ -130,7 +130,7 @@
             android:layout_centerVertical="true"
             android:background="@drawable/download_button_background"
             android:contentDescription="@string/download_button"
-            android:padding="@dimen/bottom_section_elements_padding"
+            android:padding="@dimen/download_button_padding"
             android:src="@drawable/download_icon" />
 
         <ImageButton

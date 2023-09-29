@@ -12,6 +12,7 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_id_home_fragment_to_id_details_fragment"
+            app:enterAnim="@anim/slide_in"
             app:destination="@id/id_details_fragment" />
     </fragment>
     <fragment
@@ -21,6 +22,7 @@
         tools:layout="@layout/fragment_bookmarks">
         <action
             android:id="@+id/action_id_bookmarks_fragment_to_id_details_fragment"
+            app:enterAnim="@anim/fade_in"
             app:destination="@id/id_details_fragment" />
         <action
             android:id="@+id/action_id_bookmarks_fragment_to_id_home_fragment"

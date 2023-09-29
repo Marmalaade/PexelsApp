@@ -2,7 +2,7 @@ package com.example.pexelsapp.presentation.generics
 
 import androidx.recyclerview.widget.DiffUtil
 
-class GenericDiffCallback<T>(
+class DiffCallback<T>(
     private val oldList: List<T>,
     private val newList: List<T>,
     private val areItemsTheSame: (oldItem: T, newItem: T) -> Boolean,

@@ -30,9 +30,9 @@ class AppConfig {
         fun getBaseRequest() = BASE_REQUEST
         fun getDefaultListPosition() = DEFAULT_LIST_POSITION
         fun getCacheControl() = CACHE_CONTROL
-
         fun getCacheSubDir() = CACHE_SUBDIRECTORY
         fun getBookmarkFragmentName() = BOOKMARK_FRAGMENT_NAME
+
     }
 
 }
