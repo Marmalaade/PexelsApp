@@ -4,7 +4,7 @@
 <br />
 <div align="center">
   <a>
-<img src="Drawable/app_icon.png" alt="Logo" width="80" height="80">
+<img src="assets/Drawable/app_icon.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">PexelsApp</h3>
@@ -56,7 +56,7 @@
     <img src="assets/Screen/homefragment1.png"width="35%" height="35%" >
     <img src="assets/Screen/homefragment2.png"width="35%" height="35%" >
     <img src="assets/Screen/homefragment3.png"width="35%" height="35%" >
-      <img src="Screen/homefragment4.png"width="35%" height="35%" >    
+      <img src="assets/Screen/homefragment4.png"width="35%" height="35%" >    
   </p>
 
    * Details Fragment
@@ -100,7 +100,34 @@
   </div>
   
   ----
-  Приложение протестировано на эмуляторе Android Studio (Google Pixel 4).
+  Приложение протестировано на эмуляторе   Android Studio (Google Pixel 4).
+
+  ----
+  Также проводилось тестирование на реальном устройстве.
+
+  ----
+  ### Тестирование на реальном устройстве
+---
+
+<div align="left">
+
+ <p>
+  <img src="assets/Screen/realphone1.jpg"width="30%" height="30%" >
+  <img src="assets/Screen/realphone2.jpg"width="30%" height="30%" >
+  <img src="assets/Screen/realphone3.jpg"width="30%" height="30%" >  
+  </p>
+  </div>
+  
+  ### Возможные улучшения
+  ----
+  * Разделение репозитория по назначению реализуемых задач.
+  * Декомпозирование файла конфигураций отдельно для каждого слоя.
+  * Написание логики тестирования приложения.
+  * Оптимизация функционала.
+  * ...
+
+
+
 <div style="height: 2px; background-color: #000; position: relative;">
   <div style="width: 100%; height: 100%; background-color: #f00; position: absolute; animation: expand 2s ease-in-out infinite;"></div>
 </div>
