@@ -30,7 +30,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 import java.io.BufferedInputStream
 import java.io.OutputStream
 import java.net.HttpURLConnection
@@ -206,7 +205,7 @@ class DetailsFragment : Fragment() {
     private fun changeProgressBarVisibility(isLoading: Boolean) {
         with(binding) {
             progressBar.isVisible = isLoading
-            progressBar.progress = 0
+            progressBar.progress = AppConfig.getEmptyInt()
         }
     }
 
@@ -214,13 +213,12 @@ class DetailsFragment : Fragment() {
         currentPhoto = photo
         with(binding) {
             if (photo == null) {
-                noImageButton.isVisible = true
+                noImageGroup.isVisible = true
                 noImageTextView.isVisible = true
                 authorsInformation.isVisible = false
                 bottomFunctionalButtons.isVisible = false
             } else {
-                noImageButton.isVisible = false
-                noImageTextView.isVisible = false
+                noImageGroup.isVisible = false
                 authorsInformation.isVisible = true
                 bottomFunctionalButtons.isVisible = true
                 authorsInformation.text = photo.photographer

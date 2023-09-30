@@ -1,26 +1,24 @@
 package com.example.pexelsapp.presentation.viewmodels
 
-import android.accounts.NetworkErrorException
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pexelsapp.common.AppConfig
-import com.example.pexelsapp.domain.interactors.MainUseCases
+import com.example.pexelsapp.domain.interactors.GetCuratedPhotosUseCase
+import com.example.pexelsapp.domain.interactors.GetPhotosByRequestUseCase
+import com.example.pexelsapp.domain.interactors.GetPopularRequestsUseCase
 import com.example.pexelsapp.domain.models.CuratedPhotoModel
 import com.example.pexelsapp.domain.models.RequestModel
+import com.example.pexelsapp.presentation.generics.ApiHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val mainUseCases: MainUseCases
+    private val getPhotosByRequestUseCase: GetPhotosByRequestUseCase,
+    private val getPopularRequestsUseCase: GetPopularRequestsUseCase,
+    private val getCuratedPhotosUseCase: GetCuratedPhotosUseCase
 ) : ViewModel() {
 
     private val disposables = CompositeDisposable()
@@ -42,8 +40,8 @@ class HomeViewModel @Inject constructor(
     private val _homePhotosLoadingLiveData = MutableLiveData(false)
     val homePhotosLoadingLiveData: LiveData<Boolean> get() = _homePhotosLoadingLiveData
 
-    private val _loadingProgressLivedata = MutableLiveData(0)
-    val loadingProgressLiveData: LiveData<Int> get() = _loadingProgressLivedata
+    private val _photosLoadingProgressLiveData = MutableLiveData(0)
+    val photosLoadingProgressLiveData: LiveData<Int> get() = _photosLoadingProgressLiveData
 
     fun setCurrentQuery(query: String) {
         currentQuery = query
@@ -51,86 +49,38 @@ class HomeViewModel @Inject constructor(
 
     fun getCurrentQuery() = currentQuery
 
-    private fun <T> handleApiCall(
-        loadingLiveData: MutableLiveData<Boolean>,
-        networkErrorLiveData: MutableLiveData<Boolean>,
-        successCallback: (T) -> Unit,
-        apiCall: () -> Observable<T>
-    ) {
-        loadingLiveData.postValue(true)
-        networkErrorLiveData.postValue(false)
-
-        val disposable = apiCall.invoke()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { result ->
-                    loadingLiveData.postValue(false)
-                    successCallback(result)
-                },
-                { error ->
-                    when (error) {
-                        is UnknownHostException,
-                        is SocketTimeoutException,
-                        is NetworkErrorException -> {
-                            networkErrorLiveData.postValue(true)
-                        }
-
-                        else -> {
-                            loadingLiveData.postValue(false)
-                            println(error.message)
-                        }
-                    }
-                }
-            )
-
-        disposables.add(disposable)
-
-        Observable.interval(30.toLong(), TimeUnit.MILLISECONDS)
-            .take(100.toLong())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { step ->
-                    val currentProgress = ((step + 1) * 1)
-                    _loadingProgressLivedata.postValue(currentProgress.toInt())
-                },
-                { error ->
-                    println(error.message)
-                }
-            )
-            .let {
-                disposables.add(it)
-            }
-    }
 
     fun getPhotosByRequest(query: String) {
-        handleApiCall(
+        ApiHandler.handleApiCall(
             _homePhotosLoadingLiveData,
             _photosLoadingNetworkErrorLiveData,
-            { _photosByRequestLiveData.postValue(it) }
-        ) {
-            mainUseCases.getPhotosByRequest(query).toObservable()
-        }
+            _photosLoadingProgressLiveData,
+            { _photosByRequestLiveData.postValue(it) },
+            { getPhotosByRequestUseCase.invoke(query).toObservable() },
+            disposables
+        )
     }
 
     fun getCuratedPhotos() {
-        handleApiCall(
+        ApiHandler.handleApiCall(
             _homePhotosLoadingLiveData,
             _photosLoadingNetworkErrorLiveData,
-            { _curatedPhotosLiveData.postValue(it) }
-        ) {
-            mainUseCases.getCuratedPhotosUseCase().toObservable()
-        }
+            _photosLoadingProgressLiveData,
+            { _curatedPhotosLiveData.postValue(it) },
+            { getCuratedPhotosUseCase.invoke().toObservable() },
+            disposables
+        )
     }
 
     fun getPopularRequests() {
-        handleApiCall(
+        ApiHandler.handleApiCall(
             _homePhotosLoadingLiveData,
             _photosLoadingNetworkErrorLiveData,
-            { _popularRequestsLiveData.postValue(it) }
-        ) {
-            mainUseCases.getPopularRequestsUseCase().toObservable()
-        }
+            _photosLoadingProgressLiveData,
+            { _popularRequestsLiveData.postValue(it) },
+            { getPopularRequestsUseCase.invoke().toObservable() },
+            disposables
+        )
     }
 
 

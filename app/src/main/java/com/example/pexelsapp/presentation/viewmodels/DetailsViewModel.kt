@@ -3,23 +3,28 @@ package com.example.pexelsapp.presentation.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.pexelsapp.domain.interactors.MainUseCases
+import com.example.pexelsapp.domain.interactors.DeletePhotoFromDataBaseUseCase
+import com.example.pexelsapp.domain.interactors.GetPhotoFromDataBaseUseCase
+import com.example.pexelsapp.domain.interactors.GetSelectedPhotoUseCase
+import com.example.pexelsapp.domain.interactors.InsertPhotoInDataBaseUseCase
 import com.example.pexelsapp.domain.models.CuratedPhotoModel
+import com.example.pexelsapp.presentation.generics.ApiHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val mainUseCases: MainUseCases
+    private val getSelectedPhotoUseCase: GetSelectedPhotoUseCase,
+    private val insertPhotoInDataBaseUseCase: InsertPhotoInDataBaseUseCase,
+    private val deletePhotoFromDataBaseUseCase: DeletePhotoFromDataBaseUseCase,
+    private val getPhotoFromDataBaseUseCase: GetPhotoFromDataBaseUseCase
 ) : ViewModel() {
 
-    private var disposable: Disposable? = null
+    private var disposables = CompositeDisposable()
 
     private val _selectedPhotoLiveData = MutableLiveData<CuratedPhotoModel>()
     val selectedPhotoLiveData: LiveData<CuratedPhotoModel> get() = _selectedPhotoLiveData
@@ -33,7 +38,8 @@ class DetailsViewModel @Inject constructor(
     private val _loadingProgressLivedata = MutableLiveData(0)
     val loadingProgressLiveData: LiveData<Int> get() = _loadingProgressLivedata
     fun insertPhotosInDB(photo: CuratedPhotoModel) {
-        disposable = mainUseCases.insertPhotoInDataBase(photo)
+        val disposable = insertPhotoInDataBaseUseCase.invoke(photo)
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
@@ -43,10 +49,12 @@ class DetailsViewModel @Inject constructor(
                     println(error.message)
                 }
             )
+        disposables.add(disposable)
     }
 
     fun deletePhotoFromDataBase(id: Int) {
-        disposable = mainUseCases.deletePhotoFromDataBase(id)
+        val disposable = deletePhotoFromDataBaseUseCase.invoke(id)
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
@@ -56,10 +64,11 @@ class DetailsViewModel @Inject constructor(
                     println(error.message)
                 }
             )
+        disposables.add(disposable)
     }
 
     fun getPhotoFromDataBase(selectedPhotoId: Int) {
-        disposable = mainUseCases.getPhotoFromDataBase(selectedPhotoId)
+        val disposable = getPhotoFromDataBaseUseCase.invoke(selectedPhotoId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -71,42 +80,24 @@ class DetailsViewModel @Inject constructor(
                     println(error.message)
                 }
             )
+        disposables.add(disposable)
     }
+
 
     fun getSelectedPhoto(id: Int) {
-        _detailsPhotoLoadingLiveData.postValue(true)
-        disposable = mainUseCases.getSelectedPhotoUseCase(id)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { result ->
-                    _detailsPhotoLoadingLiveData.postValue(false)
-                    _selectedPhotoLiveData.postValue(result)
-                },
-                { error ->
-                    _detailsPhotoLoadingLiveData.postValue(false)
-                    println(error.message)
-                }
-            )
-        Observable.interval(30.toLong(), TimeUnit.MILLISECONDS)
-            .take(100.toLong())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { step ->
-                    val currentProgress = ((step + 1) * 1)
-                    _loadingProgressLivedata.postValue(currentProgress.toInt())
-                },
-                { error ->
-                    println(error.message)
-                }
-            )
-            .let {
-                disposable = it
-            }
+        ApiHandler.handleApiCall(
+            _detailsPhotoLoadingLiveData,
+            MutableLiveData(),
+            _loadingProgressLivedata,
+            { result -> _selectedPhotoLiveData.postValue(result) },
+            { getSelectedPhotoUseCase.invoke(id).toObservable() },
+            disposables
+        )
     }
 
+
     override fun onCleared() {
-        disposable?.dispose()
+        disposables.dispose()
         super.onCleared()
     }
 }

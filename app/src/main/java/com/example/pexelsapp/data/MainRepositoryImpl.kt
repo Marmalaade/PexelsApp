@@ -1,7 +1,7 @@
 package com.example.pexelsapp.data
 
 import com.example.pexelsapp.common.AppConfig
-import com.example.pexelsapp.data.database.PhotosDataDataSource
+import com.example.pexelsapp.data.database.PhotosDataSource
 import com.example.pexelsapp.data.mappers.DataMapper
 import com.example.pexelsapp.data.network.PexelsApiService
 import com.example.pexelsapp.domain.MainRepository
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class MainRepositoryImpl @Inject constructor(
     private val apiService: PexelsApiService,
     private val mapper: DataMapper,
-    private val photosDataDataSource: PhotosDataDataSource
+    private val photosDataSource: PhotosDataSource
 ) : MainRepository {
 
     override fun getPopularRequests(): Single<List<RequestModel>> {
@@ -59,7 +59,7 @@ class MainRepositoryImpl @Inject constructor(
     }
 
     override fun getPhotosFromDataBase(): Single<List<CuratedPhotoModel>> {
-        return photosDataDataSource.getAllPhotos()
+        return photosDataSource.getAllPhotos()
             .map { photosDataList ->
                 photosDataList.map { photosDataEntity ->
                     mapper.mapFromPhotosDataEntityToModel(photosDataEntity)
@@ -69,18 +69,18 @@ class MainRepositoryImpl @Inject constructor(
     }
 
     override fun insertPhotoInDataBase(photo: CuratedPhotoModel): Completable {
-        return photosDataDataSource.insertPhoto(mapper.mapFromModelToPhotosDataEntity(photo))
+        return photosDataSource.insertPhoto(mapper.mapFromModelToPhotosDataEntity(photo))
             .subscribeOn(Schedulers.io())
     }
 
     override fun deletePhotoFromDataBase(photoId: Int): Completable {
-        return photosDataDataSource.deletePhoto(photoId)
+        return photosDataSource.deletePhoto(photoId)
             .subscribeOn(Schedulers.io())
     }
 
 
     override fun getPhotoFromDataBase(photoId: Int): Maybe<CuratedPhotoModel?> {
-        return photosDataDataSource.getPhoto(photoId)
+        return photosDataSource.getPhoto(photoId)
             .map { photosDataEntity ->
                 mapper.mapFromPhotosDataEntityToModel(photosDataEntity)
             }

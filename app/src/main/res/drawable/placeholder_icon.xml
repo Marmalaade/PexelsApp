@@ -4,8 +4,8 @@
     android:height="50dp"
     android:viewportWidth="50"
     android:viewportHeight="50">
-  <path
-      android:pathData="@string/placeholder_path"
-      android:fillColor="@color/dark_gray_light_palette"
-      tools:ignore="VectorPath" />
+    <path
+        android:fillColor="@color/dark_gray_light_palette"
+        android:pathData="@string/placeholder_path"
+        tools:ignore="VectorPath" />
 </vector>

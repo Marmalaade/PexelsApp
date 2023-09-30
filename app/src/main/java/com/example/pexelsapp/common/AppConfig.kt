@@ -17,6 +17,8 @@ class AppConfig {
         private const val DATABASE_NAME = "photos_database"
         private const val CACHE_CONTROL = "Cache-Control"
         private const val CACHE_SUBDIRECTORY = "http-cache"
+        private const val PROGRESS_DELAY = 30
+        private const val MAX_PROGRESS = 100
         fun getDataBaseName() = DATABASE_NAME
         fun getHomeFragmentName() = HOME_FRAGMENT_NAME
         fun getSpanCount() = SPAN_COUNT
@@ -32,8 +34,8 @@ class AppConfig {
         fun getCacheControl() = CACHE_CONTROL
         fun getCacheSubDir() = CACHE_SUBDIRECTORY
         fun getBookmarkFragmentName() = BOOKMARK_FRAGMENT_NAME
-
+        fun getProgressDelay() = PROGRESS_DELAY
+        fun getMaxProgress() = MAX_PROGRESS
     }
-
 }
 

@@ -1,7 +1,6 @@
-package com.example.pexelsapp.presentation.adapters
+package com.example.pexelsapp.presentation.viewholders
 
 import android.graphics.drawable.Drawable
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource

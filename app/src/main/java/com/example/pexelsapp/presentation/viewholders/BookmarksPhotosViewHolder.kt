@@ -1,4 +1,4 @@
-package com.example.pexelsapp.presentation.adapters
+package com.example.pexelsapp.presentation.viewholders
 
 import android.graphics.drawable.Drawable
 import androidx.recyclerview.widget.RecyclerView

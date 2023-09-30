@@ -9,6 +9,7 @@ import com.example.pexelsapp.R
 import com.example.pexelsapp.databinding.CuratedPhotoItemBinding
 import com.example.pexelsapp.domain.models.CuratedPhotoModel
 import com.example.pexelsapp.presentation.generics.DiffCallback
+import com.example.pexelsapp.presentation.viewholders.CuratedPhotosViewHolder
 
 class CuratedPhotosAdapter : RecyclerView.Adapter<CuratedPhotosViewHolder>() {
     var itemClick: ((Int) -> Unit) = {}

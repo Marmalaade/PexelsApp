@@ -27,7 +27,6 @@
         android:text="@string/no_image_text"
         android:textColor="?attr/colorOnPrimary"
         android:textSize="14sp"
-        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/no_image_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +43,6 @@
         android:textColor="?attr/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -155,7 +153,12 @@
             android:padding="@dimen/bottom_section_elements_padding"
             android:src="@drawable/bookmark_details_active"
             android:visibility="gone" />
-
-
     </RelativeLayout>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/no_image_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="no_image_text_view,no_image_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

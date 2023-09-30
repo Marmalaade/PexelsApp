@@ -55,7 +55,6 @@
         android:text="@string/no_results_text"
         android:textColor="?attr/colorOnPrimary"
         android:textSize="14sp"
-        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/no_results_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +71,6 @@
         android:textColor="?attr/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,5 +112,20 @@
         android:clipToPadding="false"
         app:layout_constraintTop_toBottomOf="@id/popular_request_recycler"
         tools:layout_editor_absoluteX="14dp" />
+
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/no_results_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="no_results_text_view,no_results_button" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/no_internet_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="no_internet_icon,no_internet_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

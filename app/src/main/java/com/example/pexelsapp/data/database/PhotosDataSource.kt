@@ -7,8 +7,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-
-class PhotosDataDataSource @Inject constructor(
+class PhotosDataSource @Inject constructor(
     private val photosDataDao: PhotosDataDao
 ) {
 

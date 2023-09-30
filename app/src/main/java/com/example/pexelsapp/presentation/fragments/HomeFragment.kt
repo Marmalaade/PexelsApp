@@ -153,7 +153,7 @@ class HomeFragment : Fragment() {
             changeProgressBarVisibility(isLoading)
         }
 
-        homeViewModel.loadingProgressLiveData.observe(viewLifecycleOwner) { loadingProgress ->
+        homeViewModel.photosLoadingProgressLiveData.observe(viewLifecycleOwner) { loadingProgress ->
             binding.progressBar.progress = loadingProgress
 
         }
@@ -163,7 +163,7 @@ class HomeFragment : Fragment() {
     private fun changeProgressBarVisibility(isLoading: Boolean) {
         with(binding) {
             progressBar.isVisible = isLoading
-            progressBar.progress = 0
+            progressBar.progress = AppConfig.getEmptyInt()
         }
     }
 
@@ -193,23 +193,19 @@ class HomeFragment : Fragment() {
     }
 
     private fun hideNetworkErrorStub() {
-        binding.noInternetIcon.isVisible = false
-        binding.noInternetButton.isVisible = false
+        binding.noInternetGroup.isVisible = false
     }
 
     private fun showNetworkErrorStub() {
-        binding.noInternetIcon.isVisible = true
-        binding.noInternetButton.isVisible = true
+        binding.noInternetGroup.isVisible = true
     }
 
     private fun hideNoResultsViews() {
-        binding.noResultsButton.isVisible = false
-        binding.noResultsTextView.isVisible = false
+        binding.noResultsGroup.isVisible = false
     }
 
     private fun showNoResultsViews() {
-        binding.noResultsButton.isVisible = true
-        binding.noResultsTextView.isVisible = true
+        binding.noResultsGroup.isVisible = true
     }
 
     private fun updateRequests(requestsData: List<RequestModel>) {

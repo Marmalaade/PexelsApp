@@ -1,7 +1,6 @@
 package com.example.pexelsapp.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -85,7 +84,7 @@ class BookMarksFragment : Fragment() {
     private fun changeProgressBarVisibility(isLoading: Boolean) {
         with(binding) {
             progressBar.isVisible = isLoading
-            progressBar.progress = 0
+            progressBar.progress = AppConfig.getEmptyInt()
         }
     }
 
@@ -99,17 +98,11 @@ class BookMarksFragment : Fragment() {
     }
 
     private fun showNoSavedPhotosViews() {
-        with(binding) {
-            noResultTextView.isVisible = true
-            noResultButton.isVisible = true
-        }
+        binding.noResultGroup.isVisible = true
     }
 
     private fun hideNoSavedPhotosViews() {
-        with(binding) {
-            noResultTextView.isVisible = false
-            noResultButton.isVisible = false
-        }
+        binding.noResultGroup.isVisible = false
     }
 
     private fun showBottomNavigationView() {
