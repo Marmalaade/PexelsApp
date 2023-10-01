@@ -6,7 +6,7 @@ import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
 
-interface MainRepository {
+interface PhotosRepository {
     fun getPopularRequests(): Single<List<RequestModel>>
     fun getCuratedPhotos(): Single<List<CuratedPhotoModel>>
     fun getSelectedPhoto(id: Int): Single<CuratedPhotoModel>

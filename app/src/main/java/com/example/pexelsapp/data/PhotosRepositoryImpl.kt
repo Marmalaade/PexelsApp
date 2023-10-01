@@ -4,7 +4,7 @@ import com.example.pexelsapp.common.AppConfig
 import com.example.pexelsapp.data.database.PhotosDataSource
 import com.example.pexelsapp.data.mappers.DataMapper
 import com.example.pexelsapp.data.network.PexelsApiService
-import com.example.pexelsapp.domain.MainRepository
+import com.example.pexelsapp.domain.PhotosRepository
 import com.example.pexelsapp.domain.models.CuratedPhotoModel
 import com.example.pexelsapp.domain.models.RequestModel
 import io.reactivex.Completable
@@ -14,11 +14,11 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
-class MainRepositoryImpl @Inject constructor(
+class PhotosRepositoryImpl @Inject constructor(
     private val apiService: PexelsApiService,
     private val mapper: DataMapper,
     private val photosDataSource: PhotosDataSource
-) : MainRepository {
+) : PhotosRepository {
 
     override fun getPopularRequests(): Single<List<RequestModel>> {
         return apiService.getFeaturedCollections(AppConfig.getApiKey(), AppConfig.getRequestsPerPage())
