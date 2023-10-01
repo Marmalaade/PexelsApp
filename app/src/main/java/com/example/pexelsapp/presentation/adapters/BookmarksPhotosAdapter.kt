@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pexelsapp.databinding.BookmarksItemBinding
 import com.example.pexelsapp.domain.models.CuratedPhotoModel
-import com.example.pexelsapp.presentation.generics.DiffCallback
+import com.example.pexelsapp.presentation.genericutils.DiffCallback
 import com.example.pexelsapp.presentation.viewholders.BookmarksPhotosViewHolder
 
 class BookmarksPhotosAdapter : RecyclerView.Adapter<BookmarksPhotosViewHolder>() {

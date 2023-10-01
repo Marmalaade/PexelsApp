@@ -8,7 +8,7 @@ import com.example.pexelsapp.domain.interactors.GetPhotoFromDataBaseUseCase
 import com.example.pexelsapp.domain.interactors.GetSelectedPhotoUseCase
 import com.example.pexelsapp.domain.interactors.InsertPhotoInDataBaseUseCase
 import com.example.pexelsapp.domain.models.CuratedPhotoModel
-import com.example.pexelsapp.presentation.generics.ApiHandler
+import com.example.pexelsapp.presentation.genericutils.ApiHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

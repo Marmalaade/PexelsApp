@@ -1,4 +1,4 @@
-package com.example.pexelsapp.presentation.generics
+package com.example.pexelsapp.presentation.genericutils
 
 import androidx.recyclerview.widget.DiffUtil
 

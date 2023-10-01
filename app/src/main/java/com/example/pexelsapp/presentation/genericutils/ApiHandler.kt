@@ -1,4 +1,4 @@
-package com.example.pexelsapp.presentation.generics
+package com.example.pexelsapp.presentation.genericutils
 
 import android.accounts.NetworkErrorException
 import androidx.lifecycle.MutableLiveData

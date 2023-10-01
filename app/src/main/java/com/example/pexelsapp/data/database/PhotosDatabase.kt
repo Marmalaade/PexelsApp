@@ -7,6 +7,6 @@ import androidx.room.RoomDatabase
     entities = [PhotosDataEntity::class],
     version = 1
 )
-abstract class PhotosDataBase : RoomDatabase() {
+abstract class PhotosDatabase : RoomDatabase() {
     abstract fun photosDao(): PhotosDataDao
 }

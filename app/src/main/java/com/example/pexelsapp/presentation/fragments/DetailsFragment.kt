@@ -23,7 +23,7 @@ import com.example.pexelsapp.R
 import com.example.pexelsapp.common.AppConfig
 import com.example.pexelsapp.databinding.FragmentDetailsBinding
 import com.example.pexelsapp.domain.models.CuratedPhotoModel
-import com.example.pexelsapp.presentation.generics.AnimationHelper
+import com.example.pexelsapp.presentation.genericutils.AnimationHelper
 import com.example.pexelsapp.presentation.viewmodels.DetailsViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pexelsapp.databinding.PopularRequestItemBinding
 import com.example.pexelsapp.domain.models.RequestModel
-import com.example.pexelsapp.presentation.generics.DiffCallback
+import com.example.pexelsapp.presentation.genericutils.DiffCallback
 import com.example.pexelsapp.presentation.viewholders.PopularRequestViewHolder
 
 class PopularRequestAdapter : RecyclerView.Adapter<PopularRequestViewHolder>() {

@@ -9,7 +9,7 @@ import com.example.pexelsapp.domain.interactors.GetPhotosByRequestUseCase
 import com.example.pexelsapp.domain.interactors.GetPopularRequestsUseCase
 import com.example.pexelsapp.domain.models.CuratedPhotoModel
 import com.example.pexelsapp.domain.models.RequestModel
-import com.example.pexelsapp.presentation.generics.ApiHandler
+import com.example.pexelsapp.presentation.genericutils.ApiHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject

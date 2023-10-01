@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pexelsapp.domain.interactors.GetPhotosFromDataBaseUseCase
 import com.example.pexelsapp.domain.models.CuratedPhotoModel
-import com.example.pexelsapp.presentation.generics.ApiHandler
+import com.example.pexelsapp.presentation.genericutils.ApiHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject

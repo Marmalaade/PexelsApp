@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.pexelsapp.common.AppConfig
 import com.example.pexelsapp.data.database.PhotosDataDao
-import com.example.pexelsapp.data.database.PhotosDataBase
+import com.example.pexelsapp.data.database.PhotosDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,14 +13,14 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataBaseModule {
+object DatabaseModule {
     @Provides
-    fun providePhotosDataBase(@ApplicationContext context: Context): PhotosDataBase {
-        return Room.databaseBuilder(context, PhotosDataBase::class.java, AppConfig.getDataBaseName())
+    fun providePhotosDatabase(@ApplicationContext context: Context): PhotosDatabase {
+        return Room.databaseBuilder(context, PhotosDatabase::class.java, AppConfig.getDataBaseName())
             .build()
     }
 
     @Provides
-    fun providePhotosDao(database: PhotosDataBase): PhotosDataDao = database.photosDao()
+    fun providePhotosDao(database: PhotosDatabase): PhotosDataDao = database.photosDao()
 
 }
